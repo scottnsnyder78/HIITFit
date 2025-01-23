@@ -31,37 +31,22 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import AVKit
 
-struct ExerciseView: View {
-    let index: Int
-    var exercise: Exercise {
-        Exercise.exercises[index]
-    }
-    let interval: TimeInterval = 30
+struct RatingView: View {
     var body: some View {
-        GeometryReader {
-            geometry in            VStack
-            {
-                HeaderView(exerciseName: exercise.exerciseName)
-                    .padding(.bottom)
-                VideoPlayerView(videoName: exercise.videoName, height: geometry.size.height * 0.45)
-                Text(Date().addingTimeInterval(interval), style: .timer).font(.system(size: geometry.size.height * 0.07))
-                Button("Start/Done") {}
-                    .font(.title3)
-                    .padding()
-                RatingView()
-                    .padding()
-                Spacer()
-                Button("History") {}
-                    .padding(.bottom)
+        HStack {
+            ForEach(0 ..< 5) { _ in
+                Image(systemName: "waveform.path.ecg")
+                    .foregroundColor(.gray)
+                    .font(.largeTitle)
             }
         }
     }
 }
 
-struct ExerciseView_Previews: PreviewProvider {
+struct RatingView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseView(index: 0)
+        RatingView()
+            .previewLayout(.sizeThatFits)
     }
 }

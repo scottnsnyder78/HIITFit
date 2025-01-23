@@ -33,35 +33,21 @@
 import SwiftUI
 import AVKit
 
-struct ExerciseView: View {
-    let index: Int
-    var exercise: Exercise {
-        Exercise.exercises[index]
-    }
-    let interval: TimeInterval = 30
+struct VideoPlayerView: View {
+    let videoName: String
+    let height: CGFloat
+    
     var body: some View {
-        GeometryReader {
-            geometry in            VStack
-            {
-                HeaderView(exerciseName: exercise.exerciseName)
-                    .padding(.bottom)
-                VideoPlayerView(videoName: exercise.videoName, height: geometry.size.height * 0.45)
-                Text(Date().addingTimeInterval(interval), style: .timer).font(.system(size: geometry.size.height * 0.07))
-                Button("Start/Done") {}
-                    .font(.title3)
-                    .padding()
-                RatingView()
-                    .padding()
-                Spacer()
-                Button("History") {}
-                    .padding(.bottom)
-            }
+        if let url = Bundle.main.url(forResource: videoName, withExtension: "mp4") {
+            VideoPlayer(player: AVPlayer(url: url)).frame(height: height)
+        } else {
+            /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
         }
     }
 }
 
-struct ExerciseView_Previews: PreviewProvider {
+struct VideoPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseView(index: 0)
+        VideoPlayerView(videoName: "squat", height: 300)
     }
 }
