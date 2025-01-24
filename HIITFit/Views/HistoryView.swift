@@ -32,45 +32,38 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-    var body: some View {
-        ZStack {
-            VStack {
-                HeaderView(titleText: "Welcome")
-                Spacer()
-                Button("History") {
+struct HistoryView: View {
+    let history = HistoryStore()
 
-                }
-                .padding(.bottom)
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            Button(action: {}) {
+                Image(systemName: "xmark.circle")
+                    .font(.title)
+                    .padding(.trailing)
             }
             VStack {
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text("Get fit")
-                            .font(.largeTitle)
-                        Text("with high intensity interval training")
-                            .font(.headline)
+                Text("History")
+                    .font(.title)
+                    .padding()
+                Form {
+                    ForEach(history.exerciseDays) {
+                        day in
+                    Section (
+                    header:
+                        Text(day.date.formatted(as: "MMM d"))
+                        .font(.headline)) {
+                            ForEach(day.exercises, id: \.self) { exercise in Text(exercise)}
+                        }
                     }
-                    Image("step-up")
-                        .resizedToFill(width: 240, height: 240)
-                        .clipShape(Circle())
                 }
-                Button(action: {}) {
-                    Text("Get Started")
-                    Image(systemName: "arrow.right.circle")
-                }
-                .font(.title2)
-                .padding()
-                .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.gray, lineWidth: 2))
             }
         }
     }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView()
+        HistoryView()
     }
 }

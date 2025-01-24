@@ -43,7 +43,7 @@ struct ExerciseView: View {
         GeometryReader {
             geometry in            VStack
             {
-                HeaderView(exerciseName: exercise.exerciseName)
+                HeaderView(titleText: exercise.exerciseName)
                     .padding(.bottom)
                 VideoPlayerView(videoName: exercise.videoName, height: geometry.size.height * 0.45)
                 Text(Date().addingTimeInterval(interval), style: .timer).font(.system(size: geometry.size.height * 0.07))
