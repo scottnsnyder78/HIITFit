@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab = 9
+    @ScenePadding("selectedTab") private var selectedTab = 9
     
     var body: some View {
         TabView(selection: $selectedTab) {
