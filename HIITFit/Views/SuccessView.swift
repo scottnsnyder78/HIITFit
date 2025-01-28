@@ -1,4 +1,4 @@
-/// Copyright (c) 2025 Kodeco LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@ import SwiftUI
 struct SuccessView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var selectedTab: Int
+    
     var body: some View {
         ZStack {
             VStack {
@@ -66,6 +67,6 @@ struct SuccessView: View {
 
 struct SuccessView_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessView( selectedTab: .constant(3))
+        SuccessView(selectedTab: .constant(3))
     }
 }

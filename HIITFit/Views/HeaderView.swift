@@ -1,4 +1,4 @@
-/// Copyright (c) 2025 Kodeco LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,18 +33,17 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @Binding var selectedTab : Int
+    @Binding var selectedTab: Int  // 1
     let titleText: String
-
+    
     var body: some View {
         VStack {
             Text(titleText)
                 .font(.largeTitle)
-            HStack {
-                ForEach(Exercise.exercises.indices, id: \.self){
-                    index in
+            HStack {  // 2
+                ForEach(Exercise.exercises.indices, id: \.self) { index in  // 3
                     let fill = index == selectedTab ? ".fill" : ""
-                    Image(systemName: "\(index + 1).circle\(fill)")
+                    Image(systemName: "\(index + 1).circle\(fill)")  // 4
                         .onTapGesture {
                             selectedTab = index
                         }

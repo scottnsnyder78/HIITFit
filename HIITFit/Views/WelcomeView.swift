@@ -1,4 +1,4 @@
-/// Copyright (c) 2025 Kodeco LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,9 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @Binding var selectedTab: Int
     @State private var showHistory = false
+    @Binding var selectedTab: Int
+    
     var body: some View {
         ZStack {
             VStack {
@@ -48,6 +49,7 @@ struct WelcomeView: View {
                 }
                 .padding(.bottom)
             }
+            
             VStack {
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
@@ -60,6 +62,10 @@ struct WelcomeView: View {
                         .resizedToFill(width: 240, height: 240)
                         .clipShape(Circle())
                 }
+                //            .resizable()
+                //            .aspectRatio(contentMode: .fill)
+                //            .frame(width: 240.0, height: 240.0)
+                // swiftlint:disable:next multiple_closures_with_trailing_closure
                 Button(action: { selectedTab = 0 }) {
                     Text("Get Started")
                     Image(systemName: "arrow.right.circle")
@@ -67,8 +73,8 @@ struct WelcomeView: View {
                 .font(.title2)
                 .padding()
                 .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.gray, lineWidth: 2))
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray, lineWidth: 2))
             }
         }
     }
