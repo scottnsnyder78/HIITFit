@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,52 +36,64 @@ struct WelcomeView: View {
     @State private var showHistory = false
     @Binding var selectedTab: Int
     
+    var getStartedButton: some View {
+        RaisedButton(buttonText: "Get Started") {
+            selectedTab = 0
+        }
+        .padding()
+    }
+    
+    var historyButton: some View {
+        Button(
+            action: {
+                showHistory = true
+            }, label: {
+                Text("History")
+                    .fontWeight(.bold)
+                    .padding([.leading, .trailing], 5)
+            })
+        .padding(.bottom, 10)
+        .buttonStyle(EmbossedButtonStyle())
+    }
+    
     var body: some View {
-        ZStack {
+        GeometryReader { geometry in
             VStack {
-                HeaderView(selectedTab: $selectedTab, titleText: "Welcome")
+                HeaderView(
+                    selectedTab: $selectedTab,
+                    titleText: "Welcome")
                 Spacer()
-                Button("History") {
-                    showHistory.toggle()
-                }
-                .sheet(isPresented: $showHistory) {
-                    HistoryView(showHistory: $showHistory)
-                }
-                .padding(.bottom)
-            }
-            
-            VStack {
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text("Get fit")
-                            .font(.largeTitle)
-                        Text("with high intensity interval training")
-                            .font(.headline)
+                // container view
+                ContainerView {
+                    ViewThatFits {
+                        VStack {
+                            WelcomeView.images
+                            WelcomeView.welcomeText
+                            getStartedButton
+                            Spacer()
+                            historyButton
+                        }
+                        VStack {
+                            WelcomeView.welcomeText
+                            getStartedButton
+                            Spacer()
+                            historyButton
+                        }
                     }
-                    Image("step-up")
-                        .resizedToFill(width: 240, height: 240)
-                        .clipShape(Circle())
                 }
-                //            .resizable()
-                //            .aspectRatio(contentMode: .fill)
-                //            .frame(width: 240.0, height: 240.0)
-                // swiftlint:disable:next multiple_closures_with_trailing_closure
-                Button(action: { selectedTab = 0 }) {
-                    Text("Get Started")
-                    Image(systemName: "arrow.right.circle")
-                }
-                .font(.title2)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray, lineWidth: 2))
+                .frame(height: geometry.size.height * 0.8)
+            }
+            .sheet(isPresented: $showHistory) {
+                HistoryView(showHistory: $showHistory)
             }
         }
     }
-}
-
-struct WelcomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        WelcomeView(selectedTab: .constant(9))
+    
+    struct WelcomeView_Previews: PreviewProvider {
+        static var previews: some View {
+            WelcomeView(selectedTab: .constant(9))
+        }
     }
+    
+    
 }

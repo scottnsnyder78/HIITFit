@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -38,23 +38,23 @@ struct ExerciseView: View {
     @State private var showSuccess = false
     @State private var timerDone = false
     @State private var showTimer = false
-    
+
     @Binding var selectedTab: Int
     let index: Int
-    
+
     var exercise: Exercise {
         Exercise.exercises[index]
     }
     var lastExercise: Bool {
         index + 1 == Exercise.exercises.count
     }
-    
+
     var startButton: some View {
-        Button("Start Exercise") {
+        RaisedButton(buttonText: "Start Exercise") {
             showTimer.toggle()
         }
     }
-    
+
     var doneButton: some View {
         Button("Done") {
             history.addDoneExercise(Exercise.exercises[index].exerciseName)
@@ -67,7 +67,20 @@ struct ExerciseView: View {
             }
         }
     }
-    
+
+    var historyButton: some View {
+        Button(
+            action: {
+                showHistory = true
+            }, label: {
+                Text("History")
+                    .fontWeight(.bold)
+                    .padding([.leading, .trailing], 5)
+            })
+        .padding(.bottom, 10)
+        .buttonStyle(EmbossedButtonStyle())
+    }
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
@@ -75,10 +88,10 @@ struct ExerciseView: View {
                     selectedTab: $selectedTab,
                     titleText: Exercise.exercises[index].exerciseName)
                 .padding(.bottom)
-                
+
                 VideoPlayerView(videoName: exercise.videoName)
                     .frame(height: geometry.size.height * 0.45)
-                
+
                 HStack(spacing: 150) {
                     startButton
                     doneButton
@@ -90,20 +103,18 @@ struct ExerciseView: View {
                 }
                 .font(.title3)
                 .padding()
-                
+
                 if showTimer {
                     TimerView(
                         timerDone: $timerDone,
                         size: geometry.size.height * 0.07)
                 }
-                
+
                 Spacer()
                 RatingView(exerciseIndex: index)
                     .padding()
-                
-                Button("History") {
-                    showHistory.toggle()
-                }
+
+                historyButton
                 .sheet(isPresented: $showHistory) {
                     HistoryView(showHistory: $showHistory)
                 }

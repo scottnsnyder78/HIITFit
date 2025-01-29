@@ -1,4 +1,4 @@
-/// Copyright (c) 2022 Razeware LLC
+/// Copyright (c) 2022 Kodeco LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,21 +34,21 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    let videoName: String
-    var body: some View {
-        if let url = Bundle.main.url(
-            forResource: videoName,
-            withExtension: "mp4") {
-            VideoPlayer(player: AVPlayer(url: url))
-        } else {
-            Text("Couldn’t find \(videoName).mp4")
-                .foregroundColor(.red)
-        }
+  let videoName: String
+  var body: some View {
+    if let url = Bundle.main.url(
+      forResource: videoName,
+      withExtension: "mp4") {
+      VideoPlayer(player: AVPlayer(url: url))
+    } else {
+      Text("Couldn’t find \(videoName).mp4")
+        .foregroundColor(.red)
     }
+  }
 }
 
 struct VideoPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        VideoPlayerView(videoName: "squat")
-    }
+  static var previews: some View {
+    VideoPlayerView(videoName: "squat")
+  }
 }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco LLC
+/// Copyright (c) 2022 Kodeco LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,24 +34,25 @@ import SwiftUI
 
 @main
 struct HIITFitApp: App {
-    @StateObject private var historyStore = HistoryStore()
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .onAppear {
-                    print(URL.documentsDirectory)
-                }
-                .environmentObject(historyStore)
-                .alert(isPresented: $historyStore.loadingError) {
-                    Alert(
-                        title: Text("History"),
-                        message: Text(
-             """
-             Unfortunately we can't load your past history.
-             Email support:
-             support@xyz.com
-             """))
-                }
+  @StateObject private var historyStore = HistoryStore()
+
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(historyStore)
+        .onAppear {
+          print(URL.documentsDirectory)
+        }
+        .alert(isPresented: $historyStore.loadingError) {
+          Alert(
+            title: Text("History"),
+            message: Text(
+              """
+              Unfortunately we can’t load your past history.
+              Email support:
+                support@xyz.com
+              """))
         }
     }
+  }
 }
